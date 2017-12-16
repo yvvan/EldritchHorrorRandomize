@@ -17,14 +17,25 @@ kExpansions = {"Forsaken Lore", "Mountains of Madness", "Strange Remnants", "Und
 
 class MainWindow : public QMainWindow {
   Q_OBJECT
-
+  enum class ActiveScreen {
+    Expansions = 0,
+    Main = 1,
+    Locations,
+    Setup,
+    Characters,
+    None
+  };
 public:
   explicit MainWindow(QWidget *parent = 0);
   ~MainWindow();
 
 private:
+  void ChangeCurrent(ActiveScreen new_current);
   void ShowExpansions();
   void ShowMainWindow();
+  void ShowCharacters();
+  void ShowLocations();
   std::unique_ptr<Ui::MainWindow> ui_;
   std::array<bool, kExpansionsNumber> selected_expansions_;
+  ActiveScreen current_screen_ = ActiveScreen::None;
 };
